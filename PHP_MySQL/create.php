@@ -14,7 +14,10 @@
 		'description'=>'Hello, web'
 	);
 	if(isset($_GET['id'])) {
-		$sql = "SELECT * FROM topic WHERE id={$_GET['id']}";
+		//mysqli_real_escape_string() : 인자로 들어온 데이터를 문자로 변환
+		$filtered_id = mysqli_real_escape_string($conn, $_GET['id']);
+
+		$sql = "SELECT * FROM topic WHERE id={$filtered_id}";
 		$result = mysqli_query($conn, $sql);
 		$row = mysqli_fetch_array($result);
 		$article['title'] = $row['title'];
